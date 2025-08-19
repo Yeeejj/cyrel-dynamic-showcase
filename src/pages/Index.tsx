@@ -235,8 +235,49 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Certifications Section */}
+      <section id="certifications" className="py-20 px-6 bg-[var(--bg-secondary)] rounded-3xl mx-6 mb-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl font-bold text-center mb-16 text-[var(--accent)] font-cormorant">
+            Professional Certifications
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {certifications.map((cert, index) => (
+              <div key={index} className="bg-[var(--bg-primary)] p-6 rounded-2xl shadow-lg hover:transform hover:-translate-y-2 transition-all duration-300 border border-[var(--accent)]/20">
+                <div className="flex items-start justify-between mb-4">
+                  <Award className="text-[var(--accent)] w-8 h-8 flex-shrink-0" />
+                  <a
+                    href={cert.credlyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--accent)] hover:text-[var(--accent)]/80 transition-colors"
+                    title="View Credential"
+                  >
+                    <ExternalLink size={20} />
+                  </a>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 font-cormorant">
+                  {cert.title}
+                </h3>
+                <p className="text-[var(--text-secondary)] text-sm mb-4">
+                  Issued by {cert.issuer}
+                </p>
+                <a
+                  href={cert.credlyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-[var(--accent)] text-[var(--bg-primary)] px-4 py-2 rounded-lg font-semibold hover:opacity-80 transition-opacity text-sm"
+                >
+                  View Credential
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-[var(--bg-secondary)] rounded-3xl mx-6 mb-8">
+      <section id="contact" className="py-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-12 text-[var(--accent)] font-cormorant">
             Let's Connect
@@ -267,47 +308,6 @@ const Index = () => {
                 </a>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications Section */}
-      <section id="certifications" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-bold text-center mb-16 text-[var(--accent)] font-cormorant">
-            Professional Certifications
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {certifications.map((cert, index) => (
-              <div key={index} className="bg-[var(--bg-secondary)] p-6 rounded-2xl shadow-lg hover:transform hover:-translate-y-2 transition-all duration-300 border border-[var(--accent)]/20">
-                <div className="flex items-start justify-between mb-4">
-                  <Award className="text-[var(--accent)] w-8 h-8 flex-shrink-0" />
-                  <a
-                    href={cert.credlyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--accent)] hover:text-[var(--accent)]/80 transition-colors"
-                    title="View Credential"
-                  >
-                    <ExternalLink size={20} />
-                  </a>
-                </div>
-                <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 font-cormorant">
-                  {cert.title}
-                </h3>
-                <p className="text-[var(--text-secondary)] text-sm mb-4">
-                  Issued by {cert.issuer}
-                </p>
-                <a
-                  href={cert.credlyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-[var(--accent)] text-[var(--bg-primary)] px-4 py-2 rounded-lg font-semibold hover:opacity-80 transition-opacity text-sm"
-                >
-                  View Credential
-                </a>
-              </div>
-            ))}
           </div>
         </div>
       </section>
