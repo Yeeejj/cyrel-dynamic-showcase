@@ -145,11 +145,7 @@ const Index = () => {
   const handleFormSubmit = (
     event?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
-    // Prevent default submit behavior if available
-    // and collect the form values using FormData
-    // Uses only existing CSS variables for visual feedback
-    // and keeps logic simple without external libs
-    // to satisfy the requested behavior.
+    // Prevent default submission
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (event as any)?.preventDefault?.();
 
@@ -162,14 +158,24 @@ const Index = () => {
     }
 
     const formData = new FormData(formElement);
-    const name = String(formData.get('name') || '');
-    const email = String(formData.get('email') || '');
-    const message = String(formData.get('message') || '');
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const message = String(formData.get('message') || '').trim();
 
-    // Placeholder handling – replace with real submission if needed
-    console.log('Contact form submitted:', { name, email, message });
-    alert('Thanks for reaching out! Your message has been recorded.');
-    formElement.reset();
+    const recipient = 'edano.cyreljane@gmail.com';
+    const subject = `New Contact Message from ${name || 'Website Visitor'}`;
+    const bodyLines = [
+      message,
+      '',
+      `From: ${name || 'N/A'}`,
+      `Email: ${email || 'N/A'}`
+    ];
+    const body = bodyLines.join('\n');
+
+    const mailtoHref = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open default email client with prefilled content
+    window.location.href = mailtoHref;
   };
 
   if (showWelcome) {
@@ -368,7 +374,7 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-[var(--accent)] mb-1">Email</label>
+                  <label htmlFor="email" className="block text-sm font-semibold text-[var(--accent)] mb-1">Email (of the contacter)</label>
                   <input
                     id="email"
                     name="email"
