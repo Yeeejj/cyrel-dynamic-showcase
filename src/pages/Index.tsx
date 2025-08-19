@@ -4,6 +4,7 @@ import TypewriterEffect from '@/components/TypewriterEffect';
 import ThemeToggle from '@/components/ThemeToggle';
 import ServiceCard from '@/components/ServiceCard';
 import ProjectCard from '@/components/ProjectCard';
+import { Github, Linkedin, Mail, MessageCircle, MessageSquare, Send } from 'lucide-react';
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -86,12 +87,12 @@ const Index = () => {
   ];
 
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/Yeeejj' },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/cyreljane/' },
-    { name: 'Email', url: 'mailto:edano.cyreljane@gmail.com' },
-    { name: 'Facebook', url: 'https://www.facebook.com/cyjaneed/' },
-    { name: 'Telegram', url: 'https://t.me/cyreledano' },
-    { name: 'Discord', url: 'https://discordapp.com/users/didang022' }
+    { name: 'GitHub', url: 'https://github.com/Yeeejj', icon: 'Github' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/cyreljane/', icon: 'Linkedin' },
+    { name: 'Email', url: 'mailto:edano.cyreljane@gmail.com', icon: 'Mail' },
+    { name: 'Facebook', url: 'https://m.me/cyjaneed', icon: 'MessageCircle' },
+    { name: 'WhatsApp', url: 'http://Wa.me/+639668011383', icon: 'MessageSquare' },
+    { name: 'Telegram', url: 'https://chat.google.com/dm/r_f3EUAAAAE/2qWgR1z2tRM/2qWgR1z2tRM?cls=10', icon: 'Send' }
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -195,17 +196,31 @@ const Index = () => {
             Let's Connect
           </h2>
           <div className="flex flex-wrap justify-center gap-6">
-            {socialLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                target={link.name !== 'Email' ? '_blank' : undefined}
-                rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-                className="bg-[var(--accent)] text-[var(--bg-primary)] px-8 py-4 rounded-xl font-semibold hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-              >
-                {link.name}
-              </a>
-            ))}
+            {socialLinks.map((link, index) => {
+              const iconMap = {
+                Github,
+                Linkedin,
+                Mail,
+                MessageCircle,
+                MessageSquare,
+                Send
+              };
+              
+              const IconComponent = iconMap[link.icon as keyof typeof iconMap];
+              
+              return (
+                <a
+                  key={index}
+                  href={link.url}
+                  target={link.name !== 'Email' ? '_blank' : undefined}
+                  rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
+                  className="bg-[var(--accent)] text-[var(--bg-primary)] p-4 rounded-xl hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group"
+                  title={link.name}
+                >
+                  <IconComponent size={24} className="group-hover:scale-110 transition-transform duration-200" />
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
