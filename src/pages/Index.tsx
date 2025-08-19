@@ -5,9 +5,11 @@ import ThemeToggle from '@/components/ThemeToggle';
 import ServiceCard from '@/components/ServiceCard';
 import ProjectCard from '@/components/ProjectCard';
 import { Github, Linkedin, Mail, MessageCircle, MessageSquare, Send } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
+  const navigate = useNavigate();
 
   const services = [
     {
@@ -120,6 +122,9 @@ const Index = () => {
             </button>
             <button onClick={() => scrollToSection('projects')} className="text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors font-semibold">
               Projects
+            </button>
+            <button onClick={() => navigate('/certifications')} className="text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors font-semibold">
+              Certifications
             </button>
             <button onClick={() => scrollToSection('contact')} className="text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors font-semibold">
               Contact
