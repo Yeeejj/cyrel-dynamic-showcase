@@ -4,7 +4,7 @@ import TypewriterEffect from '@/components/TypewriterEffect';
 import ThemeToggle from '@/components/ThemeToggle';
 import ServiceCard from '@/components/ServiceCard';
 import ProjectCard from '@/components/ProjectCard';
-import { Github, Linkedin, Mail, MessageCircle, MessageSquare, Send, Award, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, MessageCircle, MessageSquare, Send, Award, ExternalLink, Facebook } from 'lucide-react';
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -133,7 +133,7 @@ const Index = () => {
     { name: 'GitHub', url: 'https://github.com/Yeeejj', icon: 'Github' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/cyreljane/', icon: 'Linkedin' },
     { name: 'Email', url: 'mailto:edano.cyreljane@gmail.com', icon: 'Mail' },
-    { name: 'Facebook', url: 'https://m.me/cyjaneed', icon: 'MessageCircle' },
+    { name: 'Facebook', url: 'https://m.me/cyjaneed', icon: 'Facebook' },
     { name: 'WhatsApp', url: 'http://Wa.me/+639668011383', icon: 'MessageSquare' },
     { name: 'Telegram', url: 'https://chat.google.com/dm/r_f3EUAAAAE/2qWgR1z2tRM/2qWgR1z2tRM?cls=10', icon: 'Send' }
   ];
@@ -290,7 +290,8 @@ const Index = () => {
                 Mail,
                 MessageCircle,
                 MessageSquare,
-                Send
+                Send,
+                Facebook
               };
               
               const IconComponent = iconMap[link.icon as keyof typeof iconMap];
@@ -301,10 +302,13 @@ const Index = () => {
                   href={link.url}
                   target={link.name !== 'Email' ? '_blank' : undefined}
                   rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-                  className="bg-[var(--accent)] text-[var(--bg-primary)] p-4 rounded-xl hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group"
+                  className="bg-[var(--accent)] text-[var(--bg-primary)] p-4 rounded-xl hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group flex flex-col items-center gap-1"
                   title={link.name}
                 >
                   <IconComponent size={24} className="group-hover:scale-110 transition-transform duration-200" />
+                  <span className="text-[10px] font-semibold leading-none">
+                    {link.name}
+                  </span>
                 </a>
               );
             })}
