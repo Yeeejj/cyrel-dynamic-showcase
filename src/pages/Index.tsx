@@ -302,7 +302,7 @@ const Index = () => {
                   href={link.url}
                   target={link.name !== 'Email' ? '_blank' : undefined}
                   rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-                  className="bg-[var(--accent)] text-[var(--bg-primary)] p-4 rounded-xl hover:transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group flex flex-col items-center gap-1"
+                  className="bg-[var(--bg-secondary)] text-[var(--accent)] p-4 rounded-xl border border-[var(--accent)] hover:transform hover:-translate-y-1 hover:shadow-lg hover:bg-[var(--accent)] hover:text-[var(--bg-primary)] transition-all duration-300 group flex flex-col items-center gap-1"
                   title={link.name}
                 >
                   <IconComponent size={24} className="group-hover:scale-110 transition-transform duration-200" />
