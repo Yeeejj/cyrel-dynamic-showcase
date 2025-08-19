@@ -305,7 +305,7 @@ const Index = () => {
                   className="bg-[var(--bg-secondary)] text-[var(--accent)] p-4 rounded-xl border border-[var(--accent)] hover:transform hover:-translate-y-1 hover:shadow-lg hover:bg-[var(--accent)] hover:text-[var(--bg-primary)] transition-all duration-300 group flex flex-col items-center gap-1"
                   title={link.name}
                 >
-                  <IconComponent size={24} className="group-hover:scale-110 transition-transform duration-200" />
+                  <IconComponent size={24} className="group-hover:scale-110 transition-transform duration-200 text-[var(--text-primary)] group-hover:text-[var(--bg-primary)]" />
                   <span className="text-[10px] font-semibold leading-none">
                     {link.name}
                   </span>
