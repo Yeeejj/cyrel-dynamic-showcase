@@ -4,7 +4,7 @@ import TypewriterEffect from '@/components/TypewriterEffect';
 import ThemeToggle from '@/components/ThemeToggle';
 import ServiceCard from '@/components/ServiceCard';
 import ProjectCard from '@/components/ProjectCard';
-import { Github, Linkedin, Mail, MessageCircle, MessageSquare, Send, Award, ExternalLink, Facebook } from 'lucide-react';
+import { Github, Linkedin, Mail, MessageSquare, Send, Award, ExternalLink, Facebook } from 'lucide-react';
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -133,13 +133,43 @@ const Index = () => {
     { name: 'GitHub', url: 'https://github.com/Yeeejj', icon: 'Github' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/cyreljane/', icon: 'Linkedin' },
     { name: 'Email', url: 'mailto:edano.cyreljane@gmail.com', icon: 'Mail' },
-    { name: 'Facebook', url: 'https://m.me/cyjaneed', icon: 'Facebook' },
+    { name: 'Facebook', url: 'https://www.facebook.com/cyjaneed/', icon: 'Facebook' },
     { name: 'WhatsApp', url: 'http://Wa.me/+639668011383', icon: 'MessageSquare' },
     { name: 'Telegram', url: 'https://chat.google.com/dm/r_f3EUAAAAE/2qWgR1z2tRM/2qWgR1z2tRM?cls=10', icon: 'Send' }
   ];
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleFormSubmit = (
+    event?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
+    // Prevent default submit behavior if available
+    // and collect the form values using FormData
+    // Uses only existing CSS variables for visual feedback
+    // and keeps logic simple without external libs
+    // to satisfy the requested behavior.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (event as any)?.preventDefault?.();
+
+    const formElement = document.getElementById('contact-form') as HTMLFormElement | null;
+    if (!formElement) return;
+
+    if (!formElement.checkValidity()) {
+      formElement.reportValidity();
+      return;
+    }
+
+    const formData = new FormData(formElement);
+    const name = String(formData.get('name') || '');
+    const email = String(formData.get('email') || '');
+    const message = String(formData.get('message') || '');
+
+    // Placeholder handling – replace with real submission if needed
+    console.log('Contact form submitted:', { name, email, message });
+    alert('Thanks for reaching out! Your message has been recorded.');
+    formElement.reset();
   };
 
   if (showWelcome) {
@@ -278,40 +308,98 @@ const Index = () => {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-12 text-[var(--accent)] font-cormorant">
-            Let's Connect
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl font-bold mb-12 text-[var(--accent)] font-cormorant text-center">
+            Get In Touch
           </h2>
-          <div className="flex flex-wrap justify-center gap-6">
-            {socialLinks.map((link, index) => {
-              const iconMap = {
-                Github,
-                Linkedin,
-                Mail,
-                MessageCircle,
-                MessageSquare,
-                Send,
-                Facebook
-              };
-              
-              const IconComponent = iconMap[link.icon as keyof typeof iconMap];
-              
-              return (
-                <a
-                  key={index}
-                  href={link.url}
-                  target={link.name !== 'Email' ? '_blank' : undefined}
-                  rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-                  className="bg-[var(--bg-secondary)] text-[var(--accent)] p-4 rounded-xl border border-[var(--accent)] hover:transform hover:-translate-y-1 hover:shadow-lg hover:bg-[var(--accent)] hover:text-[var(--bg-primary)] transition-all duration-300 group flex flex-col items-center gap-1"
-                  title={link.name}
-                >
-                  <IconComponent size={24} className="group-hover:scale-110 transition-transform duration-200" />
-                  <span className="text-[10px] font-semibold leading-none">
-                    {link.name}
-                  </span>
-                </a>
-              );
-            })}
+
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Left: Contact Details + Socials */}
+            <div className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20">
+              <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4 font-cormorant">Contact Details</h3>
+              <ul className="space-y-3 text-[var(--text-primary)]">
+                <li>
+                  <span className="font-semibold text-[var(--accent)]">Email:</span>
+                  <a href="mailto:edano.cyreljane@gmail.com" className="ml-2 underline hover:opacity-80">edano.cyreljane@gmail.com</a>
+                </li>
+                <li>
+                  <span className="font-semibold text-[var(--accent)]">Phone:</span>
+                  <a href="http://Wa.me/+639668011383" target="_blank" rel="noopener noreferrer" className="ml-2 underline hover:opacity-80">+639668011383</a>
+                </li>
+                <li>
+                  <span className="font-semibold text-[var(--accent)]">Location:</span>
+                  <span className="ml-2">Cebu, Philippines</span>
+                </li>
+              </ul>
+
+              <div className="mt-6 flex flex-wrap gap-4">
+                {socialLinks.map((link, index) => {
+                  const iconMap = { Github, Linkedin, Mail, MessageSquare, Send, Facebook };
+                  const IconComponent = iconMap[link.icon as keyof typeof iconMap];
+                  return (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target={link.name !== 'Email' ? '_blank' : undefined}
+                      rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
+                      className="bg-[var(--bg-secondary)] text-[var(--accent)] p-3 rounded-xl border border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--bg-primary)] transition-all duration-300 group"
+                      title={link.name}
+                    >
+                      <IconComponent size={22} className="group-hover:scale-110 transition-transform duration-200 text-[var(--text-primary)] group-hover:text-[var(--bg-primary)]" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right: Contact Form */}
+            <form id="contact-form" onSubmit={handleFormSubmit} className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20">
+              <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4 font-cormorant">Send a Message</h3>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-semibold text-[var(--accent)] mb-1">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    className="w-full rounded-lg border border-[var(--accent)]/40 bg-[var(--bg-primary)] px-3 py-2 text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-[var(--accent)] mb-1">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="w-full rounded-lg border border-[var(--accent)]/40 bg-[var(--bg-primary)] px-3 py-2 text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-semibold text-[var(--accent)] mb-1">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    className="w-full rounded-lg border border-[var(--accent)]/40 bg-[var(--bg-primary)] px-3 py-2 text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                    placeholder="How can I help?"
+                  />
+                </div>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    onClick={handleFormSubmit}
+                    className="inline-flex items-center justify-center rounded-lg bg-[var(--accent)] px-4 py-2 font-semibold text-[var(--bg-primary)] transition-opacity hover:opacity-80"
+                  >
+                    Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </section>
