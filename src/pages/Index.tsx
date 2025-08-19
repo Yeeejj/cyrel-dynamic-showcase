@@ -145,11 +145,6 @@ const Index = () => {
   const handleFormSubmit = (
     event?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
-    // Prevent default submit behavior if available
-    // and collect the form values using FormData
-    // Uses only existing CSS variables for visual feedback
-    // and keeps logic simple without external libs
-    // to satisfy the requested behavior.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (event as any)?.preventDefault?.();
 
@@ -166,9 +161,27 @@ const Index = () => {
     const email = String(formData.get('email') || '');
     const message = String(formData.get('message') || '');
 
-    // Placeholder handling – replace with real submission if needed
-    console.log('Contact form submitted:', { name, email, message });
-    alert('Thanks for reaching out! Your message has been recorded.');
+    // Build a Gmail compose URL to send the message directly to the target inbox
+    const to = 'edano.cyreljane@gmail.com';
+    const subject = `Website Contact: ${name || 'New Message'}`;
+    const bodyLines = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      '',
+      'Message:',
+      message
+    ];
+    const body = bodyLines.join('\n');
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Try to open Gmail compose in a new tab. Fallback to mailto if blocked.
+    const opened = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+    if (!opened) {
+      const mailtoUrl = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    }
+
     formElement.reset();
   };
 
