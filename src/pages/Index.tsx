@@ -142,41 +142,7 @@ const Index = () => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleFormSubmit = (
-    event?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ) => {
-    // Prevent default submission
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (event as any)?.preventDefault?.();
-
-    const formElement = document.getElementById('contact-form') as HTMLFormElement | null;
-    if (!formElement) return;
-
-    if (!formElement.checkValidity()) {
-      formElement.reportValidity();
-      return;
-    }
-
-    const formData = new FormData(formElement);
-    const name = String(formData.get('name') || '').trim();
-    const email = String(formData.get('email') || '').trim();
-    const message = String(formData.get('message') || '').trim();
-
-    const recipient = 'edano.cyreljane@gmail.com';
-    const subject = `New Contact Message from ${name || 'Website Visitor'}`;
-    const bodyLines = [
-      message,
-      '',
-      `From: ${name || 'N/A'}`,
-      `Email: ${email || 'N/A'}`
-    ];
-    const body = bodyLines.join('\n');
-
-    const mailtoHref = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Open default email client with prefilled content
-    window.location.href = mailtoHref;
-  };
+  // Form submission is handled by server-side PHP at /sendmail.php
 
   if (showWelcome) {
     return <WelcomeScreen onComplete={() => setShowWelcome(false)} />;
@@ -359,7 +325,7 @@ const Index = () => {
             </div>
 
             {/* Right: Contact Form */}
-            <form id="contact-form" onSubmit={handleFormSubmit} className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20">
+            <form id="contact-form" action="/sendmail.php" method="POST" className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20">
               <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4 font-cormorant">Send a Message</h3>
               <div className="space-y-4">
                 <div>
@@ -398,7 +364,6 @@ const Index = () => {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    onClick={handleFormSubmit}
                     className="inline-flex items-center justify-center rounded-lg bg-[var(--accent)] px-4 py-2 font-semibold text-[var(--bg-primary)] transition-opacity hover:opacity-80"
                   >
                     Send Message
