@@ -199,7 +199,7 @@ const Index = () => {
           </div>
           <div className="flex justify-center">
             <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+              src="/lovable-uploads/e9b52691-540c-47cf-ab9c-bce9bed298a1.png"
               alt="Cyrel Edaño"
               className="w-80 h-80 object-cover rounded-full border-4 border-[var(--accent)]"
             />

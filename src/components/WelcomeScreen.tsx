@@ -16,12 +16,12 @@ const WelcomeScreen = ({ onComplete }: { onComplete: () => void }) => {
           setTimeout(() => {
             setIsVisible(false);
             setTimeout(onComplete, 500);
-          }, 2000);
+          }, 500);
           return prev;
         }
         return prev + 1;
       });
-    }, 2000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, [onComplete, welcomeTexts.length]);
