@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 const TypewriterEffect = () => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const jobTitles = [
+  const jobTitles = useMemo(() => [
     'Cybersecurity Analyst',
     'Machine Learning Engineer',
     'Data Scientist',
@@ -16,7 +16,7 @@ const TypewriterEffect = () => {
     'Business Intelligence Analyst',
     'Data Engineer',
     'Product Manager'
-  ];
+  ], []);
 
   useEffect(() => {
     const currentTitle = jobTitles[currentIndex];

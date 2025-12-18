@@ -1,91 +1,117 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&family=Cormorant:wght@400;600;700&display=swap');
 
+/* stylelint-disable */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* stylelint-enable */
+
+@layer utilities {
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+}
+
+
 /* Cyrel Portfolio Design System */
+
 @layer base {
-  :root {
-    /* Portfolio Color Palette */
-    --bg-primary: #EEEBDD;
-    --bg-secondary: #D8B6A4;
-    --text-primary: #000000;
-    --text-secondary: #666666;
-    --accent: #630000;
-    --light-cream: #EEEBDD;
-
-    /* Shadcn Colors */
-    --background: 38 19% 91%;
-    --foreground: 0 0% 0%;
-    --card: 38 19% 91%;
-    --card-foreground: 0 0% 0%;
-    --popover: 38 19% 91%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 100% 19%;
-    --primary-foreground: 38 19% 91%;
-    --secondary: 33 32% 79%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 33 32% 79%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 100% 19%;
-    --accent-foreground: 38 19% 91%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 38 19% 91%;
-    --border: 33 32% 79%;
-    --input: 33 32% 79%;
-    --ring: 0 100% 19%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --bg-primary: #000000;
-    --bg-secondary: #630000;
-    --text-primary: #EEEBDD;
-    --text-secondary: #D8B6A4;
-    --accent: #D8B6A4;
-
-    --background: 0 0% 0%;
-    --foreground: 38 19% 91%;
-    --card: 0 0% 0%;
-    --card-foreground: 38 19% 91%;
-    --popover: 0 0% 0%;
-    --popover-foreground: 38 19% 91%;
-    --primary: 38 19% 91%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 100% 19%;
-    --secondary-foreground: 38 19% 91%;
-    --muted: 0 100% 19%;
-    --muted-foreground: 33 32% 79%;
-    --accent: 33 32% 79%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 38 19% 91%;
-    --border: 0 100% 19%;
-    --input: 0 100% 19%;
-    --ring: 33 32% 79%;
-  }
-
-  body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'Barlow Semi Condensed', sans-serif;
-    line-height: 1.6;
-    transition: all 0.3s ease;
-  }
-
-  .dark body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-  }
+     :root {
+        /* Portfolio Color Palette */
+        --bg-primary: #EEEBDD;
+        --bg-secondary: #D8B6A4;
+        --text-primary: #000000;
+        --text-secondary: #666666;
+        --accent: #630000;
+        --light-cream: #EEEBDD;
+        /* Background Image */
+        --bg-image: url('/redcity.png');
+        /* Shadcn Colors */
+        --background: 38 19% 91%;
+        --foreground: 0 0% 0%;
+        --card: 38 19% 91%;
+        --card-foreground: 0 0% 0%;
+        --popover: 38 19% 91%;
+        --popover-foreground: 0 0% 0%;
+        --primary: 0 100% 19%;
+        --primary-foreground: 38 19% 91%;
+        --secondary: 33 32% 79%;
+        --secondary-foreground: 0 0% 0%;
+        --muted: 33 32% 79%;
+        --muted-foreground: 0 0% 40%;
+        --accent: 0 100% 19%;
+        --accent-foreground: 38 19% 91%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 38 19% 91%;
+        --border: 33 32% 79%;
+        --input: 33 32% 79%;
+        --ring: 0 100% 19%;
+        --radius: 0.5rem;
+    }
+    .dark {
+        --bg-primary: #000000;
+        --bg-secondary: #630000;
+        --text-primary: #EEEBDD;
+        --text-secondary: #D8B6A4;
+        --accent: #D8B6A4;
+        --background: 0 0% 0%;
+        --foreground: 38 19% 91%;
+        --card: 0 0% 0%;
+        --card-foreground: 38 19% 91%;
+        --popover: 0 0% 0%;
+        --popover-foreground: 38 19% 91%;
+        --primary: 38 19% 91%;
+        --primary-foreground: 0 0% 0%;
+        --secondary: 0 100% 19%;
+        --secondary-foreground: 38 19% 91%;
+        --muted: 0 100% 19%;
+        --muted-foreground: 33 32% 79%;
+        --accent: 33 32% 79%;
+        --accent-foreground: 0 0% 0%;
+        --destructive: 0 63% 31%;
+        --destructive-foreground: 38 19% 91%;
+        --border: 0 100% 19%;
+        --input: 0 100% 19%;
+        --ring: 33 32% 79%;
+    }
+    body {
+        background-color: var(--bg-primary);
+        background-image: linear-gradient(rgba(238, 235, 221, 0.6), rgba(238, 235, 221, 0.6)), url('/redcity.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-primary);
+        font-family: 'Barlow Semi Condensed', sans-serif;
+        line-height: 1.6;
+        transition: all 0.3s ease;
+    }
+    .dark body {
+        background-color: var(--bg-primary);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/redcity.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-primary);
+    }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
+    /* stylelint-disable */
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+    /* stylelint-enable */
 }

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
+const welcomeTexts = [
+  'HELLO', 'HOLA', 'BONJOUR', 'GUTEN TAG', 'CIAO', 
+  'KONNICHIWA', 'NAMASTE', 'SHALOM', 'SALAAM', 'KUMUSTA'
+];
+
 const WelcomeScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-
-  const welcomeTexts = [
-    'HELLO', 'HOLA', 'BONJOUR', 'GUTEN TAG', 'CIAO', 
-    'KONNICHIWA', 'NAMASTE', 'SHALOM', 'SALAAM', 'KUMUSTA'
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,13 +24,12 @@ const WelcomeScreen = ({ onComplete }: { onComplete: () => void }) => {
     }, 500);
 
     return () => clearInterval(interval);
-  }, [onComplete, welcomeTexts.length]);
+  }, [onComplete]);
 
   if (!isVisible) return null;
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 ${!isVisible ? 'opacity-0' : 'opacity-100'}`}
-         style={{ background: 'linear-gradient(135deg, #000000, #630000)' }}>
+    <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-gradient-to-br from-black to-[#630000] ${!isVisible ? 'opacity-0' : 'opacity-100'}`}>
       <div className="text-6xl font-bold text-[#EEEBDD] animate-fade-in font-serif">
         {welcomeTexts[currentIndex]}
       </div>
