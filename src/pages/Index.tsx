@@ -8,6 +8,9 @@ import { Github, Linkedin, Mail, Facebook, MessageCircle, Send, Award, ExternalL
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const services = [
     {
@@ -140,6 +143,36 @@ const Index = () => {
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('https://cyrel-dynamic-showcase-production.up.railway.app/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setSubmitStatus('idle'), 3000);
+      } else {
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus('idle'), 3000);
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (showWelcome) {
@@ -283,9 +316,9 @@ const Index = () => {
             Get In Touch
           </h2>
 
-          <div className="flex justify-center items-start">
-            {/* Center: Contact Details + Socials */}
-            <div className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20 max-w-2xl w-full">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Left: Contact Details + Socials */}
+            <div className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20">
               <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4 font-cormorant">Contact Details</h3>
               <ul className="space-y-3 text-[var(--text-primary)]">
                 <li>
@@ -294,7 +327,7 @@ const Index = () => {
                 </li>
               </ul>
 
-              <div className="mt-6 flex flex-wrap gap-4 justify-center">
+              <div className="mt-6 flex flex-wrap gap-4">
                 {socialLinks.map((link, index) => {
                   const iconMap = { Github, Linkedin, Mail, Facebook, MessageCircle, Send };
                   const IconComponent = iconMap[link.icon as keyof typeof iconMap];
@@ -314,7 +347,57 @@ const Index = () => {
               </div>
             </div>
 
-
+            {/* Right: Email Form */}
+            <div className="bg-[var(--bg-secondary)] p-6 rounded-2xl border border-[var(--accent)]/20">
+              <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4 font-cormorant">Send a Message</h3>
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  className="w-full px-4 py-2 rounded-lg bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--accent)]/30 focus:border-[var(--accent)] outline-none transition-colors"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  className="w-full px-4 py-2 rounded-lg bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--accent)]/30 focus:border-[var(--accent)] outline-none transition-colors"
+                />
+                <input
+                  type="text"
+                  placeholder="Subject"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  required
+                  className="w-full px-4 py-2 rounded-lg bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--accent)]/30 focus:border-[var(--accent)] outline-none transition-colors"
+                />
+                <textarea
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  rows={4}
+                  className="w-full px-4 py-2 rounded-lg bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--accent)]/30 focus:border-[var(--accent)] outline-none transition-colors resize-none"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[var(--accent)] text-[var(--bg-primary)] px-6 py-2 rounded-lg font-semibold hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
+                {submitStatus === 'success' && (
+                  <p className="text-green-500 text-center text-sm">✓ Message sent successfully!</p>
+                )}
+                {submitStatus === 'error' && (
+                  <p className="text-red-500 text-center text-sm">✗ Failed to send message. Please try again.</p>
+                )}
+              </form>
+            </div>
           </div>
         </div>
       </section>
