@@ -289,10 +289,6 @@ const Index = () => {
               <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4 font-cormorant">Contact Details</h3>
               <ul className="space-y-3 text-[var(--text-primary)]">
                 <li>
-                  <span className="font-semibold text-[var(--accent)]">Phone:</span>
-                  <a href="http://Wa.me/+639668011383" target="_blank" rel="noopener noreferrer" className="ml-2 underline hover:opacity-80">+639668011383</a>
-                </li>
-                <li>
                   <span className="font-semibold text-[var(--accent)]">Location:</span>
                   <span className="ml-2">Cebu, Philippines</span>
                 </li>
