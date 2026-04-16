@@ -1,48 +1,43 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 
 const TypewriterEffect = () => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const jobTitles = useMemo(() => [
-    'Cybersecurity Analyst',
-    'Machine Learning Engineer',
-    'Data Scientist',
-    'Quantitative Analyst',
-    'UX/UI Designer',
-    'Financial Software Engineer',
-    'Cloud Infrastructure Engineer',
-    'Business Intelligence Analyst',
-    'Data Engineer',
-    'Product Manager'
+    'Data Analyst',
+    'AI & ML Engineer',
+    'Project Manager'
   ], []);
 
   useEffect(() => {
     const currentTitle = jobTitles[currentIndex];
-    
-    const timeout = setTimeout(() => {
+
+    timeoutRef.current = setTimeout(() => {
       if (isDeleting) {
         setCurrentText(currentTitle.substring(0, currentText.length - 1));
-        if (currentText === '') {
+        if (currentText.length <= 1) {
           setIsDeleting(false);
           setCurrentIndex((prev) => (prev + 1) % jobTitles.length);
         }
       } else {
         setCurrentText(currentTitle.substring(0, currentText.length + 1));
         if (currentText === currentTitle) {
-          setTimeout(() => setIsDeleting(true), 2000);
+          timeoutRef.current = setTimeout(() => setIsDeleting(true), 2000);
+          return;
         }
       }
-    }, isDeleting ? 50 : 100);
+    }, isDeleting ? 40 : 80);
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timeoutRef.current);
   }, [currentText, currentIndex, isDeleting, jobTitles]);
 
   return (
-    <div className="text-2xl text-[#630000] min-h-[2em] flex items-center justify-center font-mono">
-      {currentText}
-      <span className="animate-pulse">|</span>
+    <div className="text-xl md:text-2xl text-[var(--accent)] min-h-[2em] flex items-center justify-center font-mono tracking-wider">
+      <span>{currentText}</span>
+      <span className="animate-pulse ml-0.5">|</span>
     </div>
   );
 };

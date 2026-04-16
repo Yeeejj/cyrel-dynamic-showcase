@@ -1,36 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const welcomeTexts = [
-  'HELLO', 'HOLA', 'BONJOUR', 'GUTEN TAG', 'CIAO', 
+  'HELLO', 'HOLA', 'BONJOUR', 'GUTEN TAG', 'CIAO',
   'KONNICHIWA', 'NAMASTE', 'SHALOM', 'SALAAM', 'KUMUSTA'
 ];
 
 const WelcomeScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isFading, setIsFading] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev === welcomeTexts.length - 1) {
-          setTimeout(() => {
-            setIsVisible(false);
-            setTimeout(onComplete, 500);
-          }, 500);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 500);
-
-    return () => clearInterval(interval);
+  const finish = useCallback(() => {
+    setIsFading(true);
+    setTimeout(onComplete, 500);
   }, [onComplete]);
 
-  if (!isVisible) return null;
+  useEffect(() => {
+    if (currentIndex >= welcomeTexts.length - 1) {
+      const timer = setTimeout(finish, 500);
+      return () => clearTimeout(timer);
+    }
+
+    const timer = setTimeout(() => {
+      setCurrentIndex((prev) => prev + 1);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, finish]);
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-gradient-to-br from-black to-[#630000] ${!isVisible ? 'opacity-0' : 'opacity-100'}`}>
-      <div className="text-6xl font-bold text-[#EEEBDD] animate-fade-in font-serif">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-black to-[#630000] transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+    >
+      <div className="text-5xl md:text-7xl font-bold text-[#EEEBDD] font-cormorant tracking-wide">
         {welcomeTexts[currentIndex]}
       </div>
     </div>
