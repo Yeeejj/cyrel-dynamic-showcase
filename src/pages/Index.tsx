@@ -5,6 +5,7 @@ import TypewriterEffect from '@/components/TypewriterEffect';
 import ThemeToggle from '@/components/ThemeToggle';
 import ServiceCard from '@/components/ServiceCard';
 import ProjectCard from '@/components/ProjectCard';
+import InterestBubble from '@/components/InterestBubble';
 import { Github, Linkedin, Mail, Facebook, MessageCircle, Send, Award, ExternalLink, FileText, Menu, X } from 'lucide-react';
 
 const Index = () => {
@@ -13,69 +14,66 @@ const Index = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [expandedServiceIndex, setExpandedServiceIndex] = useState<number | null>(null);
 
   const services = [
     {
       title: "AI, Machine Learning & Data Science",
-      description: "Python, TensorFlow, PyTorch, Scikit-Learn, OpenCV, Matplotlib, NumPy, Pandas, and SciPy for building ML models, computer vision systems, and data-driven solutions."
+      description: "Building intelligent systems — from computer vision pipelines to predictive models that turn raw data into decisions.",
+      skills: ["Python", "TensorFlow", "PyTorch", "Scikit-Learn", "OpenCV", "Matplotlib", "NumPy", "Pandas", "SciPy", "Jupyter", "YOLO", "NLP"]
     },
     {
       title: "Full-Stack & Frontend Engineering",
-      description: "TypeScript, JavaScript, React, React Native, Node.js, Next.js, Electron.js, HTML5, CSS3, and TailwindCSS for modern, responsive web and mobile applications."
+      description: "Crafting modern, responsive interfaces and full-stack applications with seamless user experiences.",
+      skills: ["TypeScript", "JavaScript", "React", "React Native", "Node.js", "Next.js", "Electron.js", "HTML5", "CSS3", "TailwindCSS", "Vite"]
     },
     {
       title: "Backend & Database Engineering",
-      description: "Java, SQL, PostgreSQL, MySQL, MongoDB, FastAPI, and Express.js for robust server-side architecture and database solutions."
+      description: "Designing robust APIs, server architectures, and database systems that scale reliably.",
+      skills: ["Java", "SQL", "PostgreSQL", "MySQL", "MongoDB", "FastAPI", "Express.js", "REST APIs", "GraphQL", "Prisma"]
     },
     {
       title: "Cloud & DevOps Infrastructure",
-      description: "Google Cloud, AWS, Oracle Cloud, Docker, GitLab CI/CD, and Terraform for scalable cloud-native deployments and automation pipelines."
+      description: "Deploying and managing cloud-native systems with automated pipelines and infrastructure as code.",
+      skills: ["Google Cloud", "AWS", "Oracle Cloud", "Docker", "GitLab CI/CD", "Terraform", "Kubernetes", "Linux", "Nginx"]
     },
     {
       title: "Data Analytics & Business Intelligence",
-      description: "Advanced data analytics, reporting dashboards, and telemetry systems to transform raw data into strategic business insights."
+      description: "Transforming raw data into strategic insights through dashboards, reports, and telemetry systems.",
+      skills: ["Power BI", "Tableau", "Google Analytics", "Excel", "SQL", "R", "Data Warehousing", "ETL", "Looker"]
     },
     {
       title: "Project Management & Agile",
-      description: "End-to-end project management, agile sprint planning, and cross-functional team coordination to deliver scalable, data-driven impact."
+      description: "Leading cross-functional teams from planning through delivery with agile methodologies.",
+      skills: ["Scrum", "Kanban", "Jira", "Confluence", "Agile", "Sprint Planning", "Stakeholder Management", "Risk Analysis", "Roadmapping"]
     }
   ];
 
   const projects = [
     {
-      title: "AI & Machine Learning Projects",
-      description: "Advanced machine learning models and artificial intelligence solutions for various industries.",
-      githubUrl: "https://github.com/Yeeejj/Artificial-Intelligence-Machine-Learning-Projects"
+      title: "Predictive Energy Management via Track Topology Mapping",
+      description: "An advanced system utilizing track topology data to optimize energy consumption and predictive management in transit or industrial systems.",
+      githubUrl: "https://github.com/Yeeejj/Predictive-Energy-Management-via-Track-Topology-Mapping.git"
     },
     {
-      title: "FinTech Finance Projects",
-      description: "Comprehensive financial technology solutions including trading systems and payment platforms.",
-      githubUrl: "https://github.com/Yeeejj/FinTech-Finance-Heavy-Projects"
+      title: "Digi-Burnout System",
+      description: "A digital wellness platform designed to monitor and mitigate burnout through data-driven insights and user-tracking.",
+      githubUrl: "https://github.com/Yeeejj/digi-burnout-system.git"
     },
     {
-      title: "Cloud & DevOps Automation",
-      description: "Infrastructure automation, cloud deployment, and DevOps pipeline implementations.",
-      githubUrl: "https://github.com/Yeeejj/Cloud-DevOps-Automation-Projects"
+      title: "Tubigan C & J",
+      description: "A management and monitoring solution focused on water distribution and utility tracking for streamlined resource delivery.",
+      githubUrl: "https://github.com/Yeeejj/tubigan-c-and-j.git"
     },
     {
-      title: "Cybersecurity & Privacy",
-      description: "Security tools, privacy solutions, and cybersecurity frameworks for enterprise protection.",
-      githubUrl: "https://github.com/Yeeejj/Cybersecurity-Privacy-Projects"
+      title: "Guardian Privacy Monitor",
+      description: "A security-focused tool designed to monitor system privacy and alert users to unauthorized data access or vulnerabilities.",
+      githubUrl: "https://github.com/Yeeejj/guardian-priv-monitor.git"
     },
     {
-      title: "Data Science & Analytics",
-      description: "Business intelligence solutions, data analysis, and predictive modeling projects.",
-      githubUrl: "https://github.com/Yeeejj/Data-Science-BI-Analytics-Projects"
-    },
-    {
-      title: "UX/UI Frontend Innovation",
-      description: "User experience design and frontend development with innovative interaction patterns.",
-      githubUrl: "https://github.com/Yeeejj/UX-UI-Frontend-Innovation-Projects"
-    },
-    {
-      title: "Full-Stack SaaS Solutions",
-      description: "Complete SaaS applications ready for startup deployment with modern tech stacks.",
-      githubUrl: "https://github.com/Yeeejj/Full-Stack-SaaS-Startup-Ready-Projects"
+      title: "Speed Analysis",
+      description: "A performance analysis tool that processes velocity data to provide detailed metrics and visualization.",
+      githubUrl: "https://github.com/Yeeejj/Speed_Analysis.git"
     }
   ];
 
@@ -225,7 +223,7 @@ const Index = () => {
       <header className="fixed top-0 left-0 w-full z-40 backdrop-blur-lg bg-[var(--bg-primary)]/90 border-b border-[var(--bg-secondary)]/50">
         <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <a href="#" className="text-xl font-bold text-[var(--accent)] font-tajawal tracking-wide">
-            CYREL EDANO
+            CYREL EDAÑO
           </a>
 
           {/* Desktop Nav */}
@@ -290,7 +288,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-[var(--text-primary)] font-tajawal tracking-tight">
-          CYREL EDANO
+          CYREL EDAÑO
         </h1>
         <TypewriterEffect />
         <div className="mt-10 flex flex-wrap gap-4 justify-center">
@@ -325,8 +323,8 @@ const Index = () => {
           </div>
           <div className="flex justify-center">
             <img
-              src="/lovable-uploads/e9b52691-540c-47cf-ab9c-bce9bed298a1.png"
-              alt="Cyrel Edano"
+              src="/profile.png"
+              alt="Cyrel Edaño"
               className="w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl border-2 border-[var(--accent)]/30 shadow-lg"
               loading="lazy"
             />
@@ -343,9 +341,15 @@ const Index = () => {
           <p className="text-center text-[var(--text-secondary)] mb-16 max-w-2xl mx-auto">
             Core competencies across the full technology spectrum
           </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
             {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <ServiceCard
+                key={index}
+                {...service}
+                isExpanded={expandedServiceIndex === index}
+                onMouseEnter={() => setExpandedServiceIndex(index)}
+                onMouseLeave={() => setExpandedServiceIndex(null)}
+              />
             ))}
           </div>
         </div>
@@ -410,12 +414,7 @@ const Index = () => {
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
             {interests.map((interest, index) => (
-              <span
-                key={index}
-                className="bg-[var(--bg-secondary)]/50 text-[var(--text-primary)] px-5 py-2.5 rounded-full text-sm font-medium border border-[var(--accent)]/10 hover:border-[var(--accent)]/30 transition-colors"
-              >
-                {interest}
-              </span>
+              <InterestBubble key={index} label={interest} />
             ))}
           </div>
         </div>
@@ -543,7 +542,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-[var(--bg-secondary)]/50">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[var(--text-secondary)]">
-          <p>Cyrel Edano</p>
+          <p>Cyrel Edaño</p>
           <div className="flex gap-6">
             {socialLinks.slice(0, 4).map((link, index) => {
               const IconComponent = link.icon;

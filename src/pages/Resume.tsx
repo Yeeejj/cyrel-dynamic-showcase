@@ -16,7 +16,7 @@ const Resume = () => {
           </Link>
           <a
             href="/resume.pdf"
-            download="CyrelEdano_Resume.pdf"
+            download="CyrelEdaño_Resume.pdf"
             className="flex items-center gap-2 bg-[var(--accent)] text-[var(--bg-primary)] px-5 py-2.5 rounded-lg font-semibold hover:opacity-80 transition-opacity"
           >
             <Download size={18} />

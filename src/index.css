@@ -16,60 +16,63 @@
 
 @layer base {
   :root {
-    --bg-primary: #EEEBDD;
-    --bg-secondary: #D8B6A4;
-    --text-primary: #1a1a1a;
-    --text-secondary: #555555;
-    --accent: #630000;
+    /* Old Money — Pearl / Cream / Bordeaux */
+    --bg-primary: #FAF6F0;
+    --bg-secondary: #EDE4D8;
+    --text-primary: #2C1810;
+    --text-secondary: #7A6555;
+    --accent: #722F37;
 
-    --background: 38 19% 91%;
-    --foreground: 0 0% 10%;
-    --card: 38 19% 91%;
-    --card-foreground: 0 0% 10%;
-    --popover: 38 19% 91%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 0 100% 19%;
-    --primary-foreground: 38 19% 91%;
-    --secondary: 33 32% 79%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 33 32% 79%;
-    --muted-foreground: 0 0% 40%;
-    --accent-hsl: 0 100% 19%;
-    --accent-foreground: 38 19% 91%;
+    /* Shadcn tokens */
+    --background: 36 56% 96%;
+    --foreground: 17 47% 12%;
+    --card: 36 56% 96%;
+    --card-foreground: 17 47% 12%;
+    --popover: 36 56% 96%;
+    --popover-foreground: 17 47% 12%;
+    --primary: 354 42% 31%;
+    --primary-foreground: 36 56% 96%;
+    --secondary: 33 37% 88%;
+    --secondary-foreground: 17 47% 12%;
+    --muted: 33 37% 88%;
+    --muted-foreground: 22 18% 40%;
+    --accent-hsl: 354 42% 31%;
+    --accent-foreground: 36 56% 96%;
     --destructive: 0 84% 60%;
-    --destructive-foreground: 38 19% 91%;
-    --border: 33 32% 79%;
-    --input: 33 32% 79%;
-    --ring: 0 100% 19%;
+    --destructive-foreground: 36 56% 96%;
+    --border: 33 25% 84%;
+    --input: 33 25% 84%;
+    --ring: 354 42% 31%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #1a0000;
-    --text-primary: #EEEBDD;
-    --text-secondary: #b8a99a;
-    --accent: #D8B6A4;
+    /* Old Money Dark — Chocolate / Burgundy / Champagne */
+    --bg-primary: #12100D;
+    --bg-secondary: #231A17;
+    --text-primary: #F0EBE3;
+    --text-secondary: #A89888;
+    --accent: #C9A87C;
 
-    --background: 0 0% 4%;
-    --foreground: 38 19% 91%;
-    --card: 0 0% 4%;
-    --card-foreground: 38 19% 91%;
-    --popover: 0 0% 4%;
-    --popover-foreground: 38 19% 91%;
-    --primary: 38 19% 91%;
-    --primary-foreground: 0 0% 4%;
-    --secondary: 0 100% 10%;
-    --secondary-foreground: 38 19% 91%;
-    --muted: 0 100% 10%;
-    --muted-foreground: 33 32% 79%;
-    --accent-hsl: 33 32% 79%;
-    --accent-foreground: 0 0% 4%;
+    --background: 30 16% 6%;
+    --foreground: 33 33% 92%;
+    --card: 30 16% 6%;
+    --card-foreground: 33 33% 92%;
+    --popover: 30 16% 6%;
+    --popover-foreground: 33 33% 92%;
+    --primary: 33 33% 92%;
+    --primary-foreground: 30 16% 6%;
+    --secondary: 15 24% 11%;
+    --secondary-foreground: 33 33% 92%;
+    --muted: 15 24% 11%;
+    --muted-foreground: 30 18% 63%;
+    --accent-hsl: 34 39% 64%;
+    --accent-foreground: 30 16% 6%;
     --destructive: 0 63% 31%;
-    --destructive-foreground: 38 19% 91%;
-    --border: 0 100% 10%;
-    --input: 0 100% 10%;
-    --ring: 33 32% 79%;
+    --destructive-foreground: 33 33% 92%;
+    --border: 15 24% 11%;
+    --input: 15 24% 11%;
+    --ring: 34 39% 64%;
   }
 
   body {
@@ -86,12 +89,10 @@
   }
 }
 
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* Font classes */
 .font-cormorant {
   font-family: 'Cormorant', serif;
 }

@@ -29,9 +29,10 @@ const WelcomeScreen = ({ onComplete }: { onComplete: () => void }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-black to-[#630000] transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+      style={{ background: 'linear-gradient(135deg, #12100D 0%, #2C1810 40%, #722F37 100%)' }}
     >
-      <div className="text-5xl md:text-7xl font-bold text-[#EEEBDD] font-cormorant tracking-wide">
+      <div className="text-5xl md:text-7xl font-bold font-cormorant tracking-wide" style={{ color: '#F0EBE3' }}>
         {welcomeTexts[currentIndex]}
       </div>
     </div>
